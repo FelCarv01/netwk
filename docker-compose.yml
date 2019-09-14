@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  postgres_db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: rootpass
+  
+  web:
+    build: .
+    command:  python3 manage.py runserver 0.0.0.0:8990
+    volumes: 
+      - .:/usr/src/app
+    ports: 
+      - "8990:8990"
+    depends_on: 
+      - postgres_db
+
+
